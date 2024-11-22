@@ -4,8 +4,8 @@ This branch contains only the boilerplate setup for the exercise.
 
 ## Available Branches
 
-- **[#feat/patrick](#feat/patrick)**: Contains the implementation of the mandatory exercise requirements.
-- **[#feat/payments-page](#feat/payments-page)**: Adds the payments page bonus feature, branched off [#feat/patrick](#feat/patrick).
+- **[#feat/patrick](https://github.com/RodPaDev/altario-fullstack-exercise-1223/tree/feat/patrick)**: Contains the implementation of the mandatory exercise requirements.
+- **[#feat/payments-page](https://github.com/RodPaDev/altario-fullstack-exercise-1223/tree/feat/payment-page)**: Adds the payments page bonus feature, branched off [#feat/patrick](https://github.com/RodPaDev/altario-fullstack-exercise-1223/tree/feat/patrick).
 
 ## Time Spent
 
