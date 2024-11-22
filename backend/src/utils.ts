@@ -25,3 +25,18 @@ export function isBiasSettable(lastBiasTime: number) {
 export function isSingleAlphabeticalChar(str: string) {
     return /^[a-zA-Z]$/.test(str);
 }
+
+export function generateId(size = 12): string {
+    const alphabet = "abcdefghijklmnopqrstuvwxyz1234567890_-"
+    let idx = 0
+    let id = ""
+    while (idx < size) {
+        let char = alphabet[Math.floor(Math.random() * alphabet.length)]
+        if (Math.random() < 0.5) {
+            char = char.toUpperCase()
+        }
+        id += char
+        idx += 1
+    }
+    return id
+}
