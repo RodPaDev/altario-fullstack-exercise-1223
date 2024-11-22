@@ -57,49 +57,50 @@ export default function PaymentView({ state, dispatch }: PaymentViewProps) {
   const onChangeAmount = (e: React.ChangeEvent<HTMLInputElement>) => setAmount(e.target.value)
 
   return (
-    <div>
+    <div className='payments-view'>
       <GeneratorStatus state={state} />
 
-      <div className="action-bar">
-        <Input
-          label="Payment"
-          placeholder="Payment"
-          value={name}
-          onChange={onChangeName}
-        />
-        <Input
-          label="Amount"
-          placeholder="Amount"
-          value={amount}
-          onChange={onChangeAmount}
-        />
+      <div>
         <div className="action-bar">
-          <Button label="+ ADD" onClick={handleAddPayment} />
+          <Input
+            label="Payment"
+            placeholder="Payment"
+            value={name}
+            onChange={onChangeName}
+          />
+          <Input
+            label="Amount"
+            placeholder="Amount"
+            value={amount}
+            onChange={onChangeAmount}
+          />
+          <div className="action-bar">
+            <Button label="+ ADD" onClick={handleAddPayment} />
+          </div>
         </div>
-      </div>
 
-      {/* Table Section */}
-      <div className="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th style={{ width: '40%' }}>Payment Name</th>
-              <th>Amount</th>
-              <th>Code</th>
-              <th>Grid</th>
-            </tr>
-          </thead>
-          <tbody>
-            {state.payments.map((payment) => (
-              <tr key={payment.id}>
-                <td>{payment.name}</td>
-                <td>{payment.amount}</td>
-                <td>{payment.code}</td>
-                <td>{payment.grid.length}</td>
+        <div className="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style={{ width: '40%' }}>Payment Name</th>
+                <th>Amount</th>
+                <th>Code</th>
+                <th>Grid</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {state.payments.map((payment) => (
+                <tr key={payment.id}>
+                  <td>{payment.name}</td>
+                  <td>{payment.amount}</td>
+                  <td>{payment.code}</td>
+                  <td>{payment.grid.length}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

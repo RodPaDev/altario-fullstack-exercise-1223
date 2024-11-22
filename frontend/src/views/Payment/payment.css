@@ -5,6 +5,12 @@
   gap: 10px;
 }
 
+.payments-view {
+  display: flex;
+  flex-direction: column;
+  gap: 2em
+}
+
 .table-container {
   margin-top: 20px;
   width: 100%;
