@@ -4,8 +4,8 @@ This branch contains only the boilerplate setup for the exercise.
 
 ## Available Branches
 
-- **#feat/patrick**: Contains the implementation of the mandatory exercise requirements.
-- **#feat/payments-page**: Adds the payments page bonus feature, branched off #feat/patrick.
+- **[#feat/patrick](#feat/patrick)**: Contains the implementation of the mandatory exercise requirements.
+- **[#feat/payments-page](#feat/payments-page)**: Adds the payments page bonus feature, branched off [#feat/patrick](#feat/patrick).
 
 ## Time Spent
 
