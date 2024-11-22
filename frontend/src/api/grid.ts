@@ -1,18 +1,28 @@
 import axios from "axios";
 
+interface GenerateGridResponse {
+    grid: string;
+    lastBiasTime: number;
+    prevBiasChar: string;
+}
+
+interface GetGridCodeResponse {
+    code: string;
+}
+
+interface GenerateGridParams {
+    bias?: string;
+}
+
 const BASE_URL = "http://localhost:3000/grid";
 
-export async function generateGrid(bias?: string) {
+export async function generateGrid(params?: GenerateGridParams): Promise<GenerateGridResponse> {
     try {
-        let params = {}
-        if (bias) {
-            params = { bias }
-        }
-
-        const response = await axios.post(`${BASE_URL}/generate`, null, {
+        const response = await axios.post<GenerateGridResponse>(`${BASE_URL}/generate`, null, {
             params,
         });
-        return response.data.grid;
+
+        return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {
             throw new Error(error.response?.data?.message || "Failed to generate grid.");
@@ -21,10 +31,10 @@ export async function generateGrid(bias?: string) {
     }
 }
 
-export async function getGridCode() {
+export async function getGridCode(): Promise<GetGridCodeResponse> {
     try {
-        const response = await axios.get(`${BASE_URL}/decode`);
-        return response.data.code;
+        const response = await axios.get<GetGridCodeResponse>(`${BASE_URL}/decode`);
+        return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {
             throw new Error(error.response?.data?.message || "Failed to fetch grid code.");
