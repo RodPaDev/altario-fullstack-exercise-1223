@@ -3,7 +3,9 @@ import { adjustCount, isBiasSettable, isSingleAlphabeticalChar } from "../utils"
 
 const ALPHABET: string = "abcdefghijklmnopqrstuvwxyz"
 const GRID_SIZE: Array<number> = [10, 10]
+const BIAS_PERCENTAGE: number = 20
 const router: Router = Router();
+
 
 let lastBiasTime: number = 0
 let prevBiasChar: string = ""
@@ -39,7 +41,7 @@ router.post('/generate', (req: Request, res: Response) => {
     while (idx < cells) {
         let char = ALPHABET[Math.floor(Math.random() * ALPHABET.length)]
 
-        if (bias && Math.random() < 0.2) {
+        if (bias && Math.random() < BIAS_PERCENTAGE / 100) {
             char = bias.toLowerCase()
         }
 
