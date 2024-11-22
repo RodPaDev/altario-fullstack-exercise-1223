@@ -6,7 +6,7 @@ const GRID_SIZE: Array<number> = [10, 10]
 const router: Router = Router();
 
 let lastBiasTime: number = 0
-let currentGrid: string = "yzlkjayabnsldvmwestlboeuyefgkvowzbsoeugghlphdjibirtetssogyusmabyapdqfgmhmznhuougnlupfvajtshdazwxkpnw"
+let currentGrid: string = ""
 
 router.post('/generate', (req: Request, res: Response) => {
     const bias = req.query.bias as string;
