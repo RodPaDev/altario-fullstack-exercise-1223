@@ -1,4 +1,4 @@
-# Altario Full-Stack Exercise 1223
+# Altario Full-Stack Exercise 1223 (Generator + Payments Bonus)
 
 This repository contains my solution for the Altario exercise:
 - **Frontend**: A React-based single-page application using Vite.
