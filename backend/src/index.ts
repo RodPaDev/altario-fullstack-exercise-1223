@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 
 import gridRoutes from "./routes/grid"
@@ -14,6 +14,10 @@ app.use(initAltarioDB);
 
 app.use('/grid', gridRoutes);
 app.use('/payment', paymentRoutes)
+
+app.get('/ping', (_req: Request, res: Response) => {
+  res.status(200).send({ message: 'pong' });
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

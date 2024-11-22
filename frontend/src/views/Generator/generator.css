@@ -31,6 +31,10 @@
     background-color: rgb(255, 191, 54);
   }
   
+  .grid-status-indicator.ready {
+    background-color: green;
+  }
+
   .grid-status-indicator.live {
     background-color: red;
   }

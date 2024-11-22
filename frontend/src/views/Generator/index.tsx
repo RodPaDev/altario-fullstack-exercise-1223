@@ -18,11 +18,12 @@ export type GridData = {
 }
 
 type GeneratorViewProps = {
+  isConnected: boolean,
   gridData: GridData | null,
   setGridData: Function
 }
 
-export default function GeneratorView({ gridData, setGridData }: GeneratorViewProps) {
+export default function GeneratorView({ isConnected, gridData, setGridData }: GeneratorViewProps) {
   const [biasChar, setBiasChar] = useState<string>("")
   const [isGeneratorStarted, setIsGeneratorStarted] = useState<boolean>(false)
   const [lastBiasTime, setLastBiasTime] = useState<number | null>(null)
@@ -90,6 +91,33 @@ export default function GeneratorView({ gridData, setGridData }: GeneratorViewPr
     }
   }
 
+  function getGridStatus() {
+    if (!isConnected) {
+      return {
+        status: "DISCONNECTED",
+        indicatorType: "disconnected",
+        message: "VERIFY IF BACKEND IS UP AND RUNNING",
+      };
+    }
+
+    if (isGeneratorStarted && gridData?.code) {
+      return {
+        status: "LIVE",
+        indicatorType: "live",
+        message: `YOUR CODE: ${gridData.code}`
+
+      };
+    }
+
+    return {
+      status: "READY",
+      indicatorType: "ready",
+      message: "READY FOR GRID GENERATION",
+    };
+  }
+
+  const { status, indicatorType, message } = getGridStatus();
+
   return (
     <div>
       <div className='action-bar'>
@@ -103,20 +131,13 @@ export default function GeneratorView({ gridData, setGridData }: GeneratorViewPr
         <Button label={isGeneratorStarted ? 'HALT GENERATION' : 'GENERATE 2D GRID'} onClick={handleGenerateGrid} />
       </div>
       <Grid data={gridData?.grid} />
-      <div className='grid-status-container'>
-        <div className='grid-status-indicator-container'>
-          <div className={clsx('grid-status-indicator', isGeneratorStarted && 'live')}></div>
-          <span>{isGeneratorStarted ? 'LIVE' : 'OFFLINE'}</span>
+      <div className="grid-status-container">
+        <div className="grid-status-indicator-container">
+          <div className={clsx('grid-status-indicator', indicatorType)}></div>
+          <span>{status}</span>
         </div>
-
-        <div className='grid-status-code-container'>
-          {gridData?.code ?
-            <span>
-              YOUR CODE: <strong>{gridData.code}</strong>
-            </span>
-            :
-            <span className=''>AWAITING GRID GENERATION</span>
-          }
+        <div className="grid-status-code-container">
+          <span>{message}</span>
         </div>
       </div>
     </div>
