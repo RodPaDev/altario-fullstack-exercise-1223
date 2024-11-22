@@ -1,10 +1,15 @@
 import { useEffect, useRef, useReducer } from 'react';
-import './App.css';
+import {
+  Route,
+  Routes
+} from "react-router-dom";
 import GeneratorView from './views/Generator';
+import Navbar from './components/Navbar';
 import PaymentView from './views/Payment';
 import { getPing } from './api/ping';
 import { generateGrid, getGridCode } from './api/grid';
 import { initialState, reducer } from './state';
+import './App.css';
 
 const PING_INTERVAL_MS = 5000;
 const GENERATION_STEP_MS = 2000;
@@ -72,18 +77,27 @@ function App() {
     <div className="main-page">
       <div className="main-content">
         <h1>Altar.io Full-Stack Exercise 1223</h1>
-        <GeneratorView
-          state={state}
-          dispatch={dispatch}
-          startGridGeneration={startGridGeneration}
-          stopGridGeneration={stopGridGeneration}
-        />
-        <PaymentView
-          state={state}
-          dispatch={dispatch}
-        />
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<GeneratorView
+            state={state}
+            dispatch={dispatch}
+            startGridGeneration={startGridGeneration}
+            stopGridGeneration={stopGridGeneration}
+          />}
+          >
+
+          </Route>
+          <Route path="/payments" element={<PaymentView
+            state={state}
+            dispatch={dispatch}
+          />}>
+
+          </Route>
+        </Routes>
+
       </div>
-    </div>
+    </div >
   );
 }
 
