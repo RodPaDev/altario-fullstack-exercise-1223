@@ -1,10 +1,11 @@
 import React, { useEffect, useReducer, useState } from 'react';
+
+import { GridData } from '../../state';
+import { createPayment, getPayments, Payment } from '../../api/payment';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import './payment.css';
-import { createPayment, getPayments, Payment } from '../../api/payment';
 
-import { GridData } from '../Generator'
 type State = {
   payments: Payment[];
 };
@@ -47,6 +48,7 @@ export default function PaymentView({ gridData }: PaymentViewProps) {
 
     try {
       const createdPayment = await createPayment(newPayment);
+      console.log(createdPayment)
       dispatch({ type: 'ADD_PAYMENT', payload: createdPayment.payment });
       setName('');
       setAmount('');
