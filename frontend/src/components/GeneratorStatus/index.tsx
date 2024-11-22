@@ -1,15 +1,15 @@
 import clsx from 'clsx';
+import { State } from '../../state';
+
 import "./generatorStatus.css"
 
 type GridStatusProps = {
-    isConnected: boolean;
-    isGeneratorStarted: boolean;
-    gridCode: string | null;
+    state: State;
 };
 
-export default function GridStatus({ isConnected, isGeneratorStarted, gridCode }: GridStatusProps) {
+export default function GeneratorStatus({ state }: GridStatusProps) {
     const getStatus = () => {
-        if (!isConnected) {
+        if (!state.isConnected) {
             return {
                 status: 'DISCONNECTED',
                 indicatorType: 'disconnected',
@@ -17,11 +17,11 @@ export default function GridStatus({ isConnected, isGeneratorStarted, gridCode }
             };
         }
 
-        if (isGeneratorStarted && gridCode) {
+        if (state.isGeneratorStarted && state.gridData?.code) {
             return {
                 status: 'LIVE',
                 indicatorType: 'live',
-                message: <span>YOUR CODE: <strong>{gridCode}</strong></span>,
+                message: <span>YOUR CODE: <strong>{state.gridData.code}</strong></span>,
             };
         }
 

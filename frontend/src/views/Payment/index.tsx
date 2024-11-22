@@ -3,8 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { createPayment, getPayments, Payment } from '../../api/payment';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import './payment.css';
+import GeneratorStatus from '../../components/GeneratorStatus';
 import { Action, State } from '../../state';
+
+import './payment.css';
 
 
 
@@ -56,6 +58,8 @@ export default function PaymentView({ state, dispatch }: PaymentViewProps) {
 
   return (
     <div>
+      <GeneratorStatus state={state} />
+
       <div className="action-bar">
         <Input
           label="Payment"
