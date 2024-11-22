@@ -4,7 +4,7 @@ import GeneratorView from './views/Generator';
 import PaymentView from './views/Payment';
 import { getPing } from './api/ping';
 import { generateGrid, getGridCode } from './api/grid';
-import { initialState, reducer, State } from './state';
+import { initialState, reducer } from './state';
 
 const PING_INTERVAL_MS = 5000;
 const GENERATION_STEP_MS = 2000;
@@ -78,7 +78,10 @@ function App() {
           startGridGeneration={startGridGeneration}
           stopGridGeneration={stopGridGeneration}
         />
-        <PaymentView gridData={state.gridData} />
+        <PaymentView
+          state={state}
+          dispatch={dispatch}
+        />
       </div>
     </div>
   );
