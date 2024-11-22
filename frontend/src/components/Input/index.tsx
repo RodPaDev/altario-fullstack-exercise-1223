@@ -4,7 +4,7 @@ type Input = {
     label: string;
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    disabled: boolean,
+    disabled?: boolean,
     placeholder?: string;
     type?: string;
 };
