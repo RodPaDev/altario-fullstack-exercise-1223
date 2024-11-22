@@ -10,7 +10,7 @@ function ClockComponent() {
         return () => clearInterval(interval);
     }, []);
 
-    return <Clock value={time} size={50} renderMinuteMarks={false} />;
+    return <Clock value={time} size={50} renderMinuteMarks={false} renderMinuteHand={false} renderHourMarks={false} />;
 }
 
 export default ClockComponent;
