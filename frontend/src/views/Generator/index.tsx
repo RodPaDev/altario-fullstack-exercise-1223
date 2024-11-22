@@ -11,16 +11,13 @@ import './generator.css';
 type GeneratorViewProps = {
   state: State;
   dispatch: React.Dispatch<Action>;
-  startGridGeneration: () => void;
-  stopGridGeneration: () => void;
 };
 
 export default function GeneratorView({
   state,
   dispatch,
-  startGridGeneration,
-  stopGridGeneration,
 }: GeneratorViewProps) {
+
   const handleBiasCharChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === '' || /^[a-zA-Z]$/.test(e.target.value)) {
       dispatch({ type: 'SET_BIAS_CHAR', payload: e.target.value });
@@ -28,11 +25,7 @@ export default function GeneratorView({
   };
 
   const handleGenerateGrid = () => {
-    if (state.isGeneratorStarted) {
-      stopGridGeneration();
-    } else {
-      startGridGeneration();
-    }
+    dispatch({ type: 'TOGGLE_GENERATOR' })
   };
 
   return (

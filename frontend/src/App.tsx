@@ -13,6 +13,7 @@ import './App.css';
 
 const PING_INTERVAL_MS = 5000;
 const GENERATION_STEP_MS = 2000;
+const BIAS_COOLDOWN_MS = 4000
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -34,22 +35,37 @@ function App() {
     };
   }, []);
 
-  const startGridGeneration = async () => {
-    dispatch({ type: 'TOGGLE_GENERATOR' });
-    await fetchGridData();
+  useEffect(() => {
+    if (state.lastBiasTime) {
+      const timeout = setTimeout(() => {
+        dispatch({ type: 'SET_BIAS_INPUT_DISABLED', payload: false });
+      }, BIAS_COOLDOWN_MS);
 
-    generationIntervalRef.current = setInterval(() => {
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+  }, [state.lastBiasTime]);
+
+  useEffect(() => {
+    if (state.isGeneratorStarted) {
       fetchGridData();
-    }, GENERATION_STEP_MS);
-  };
+      generationIntervalRef.current = window.setInterval(fetchGridData, GENERATION_STEP_MS);
+    } else {
 
-  const stopGridGeneration = () => {
-    dispatch({ type: 'TOGGLE_GENERATOR' });
+    }
+
+    return () => {
+      cleanupGenerationRef()
+    };
+  }, [state.isGeneratorStarted, state.biasChar]);
+
+  const cleanupGenerationRef = () => {
     if (generationIntervalRef.current) {
       clearInterval(generationIntervalRef.current);
       generationIntervalRef.current = null;
     }
-  };
+  }
 
   const fetchGridData = async () => {
     try {
@@ -61,7 +77,7 @@ function App() {
       if (
         state.biasChar !== prevBiasChar &&
         !state.isBiasInputDisabled &&
-        lastBiasTime + 4000 > Date.now()
+        lastBiasTime + BIAS_COOLDOWN_MS > Date.now()
       ) {
         dispatch({ type: 'SET_LAST_BIAS_TIME', payload: lastBiasTime });
         dispatch({ type: 'SET_BIAS_INPUT_DISABLED', payload: true });
@@ -82,8 +98,6 @@ function App() {
           <Route path="/" element={<GeneratorView
             state={state}
             dispatch={dispatch}
-            startGridGeneration={startGridGeneration}
-            stopGridGeneration={stopGridGeneration}
           />}
           >
 
