@@ -6,6 +6,7 @@ const GRID_SIZE: Array<number> = [10, 10]
 const router: Router = Router();
 
 let lastBiasTime: number = 0
+let prevBiasChar: string = ""
 let currentGrid: string = ""
 
 router.post('/generate', (req: Request, res: Response) => {
@@ -13,6 +14,8 @@ router.post('/generate', (req: Request, res: Response) => {
     let cells = GRID_SIZE[0] * GRID_SIZE[1]
     let grid = ""
     let idx = 0
+
+    const oldPrevBiasChar = prevBiasChar;
 
     // validation
     if (bias) {
@@ -22,9 +25,10 @@ router.post('/generate', (req: Request, res: Response) => {
         }
 
         let newBiasTime = isBiasSettable(lastBiasTime)
-        if (newBiasTime) {
+        if (newBiasTime && bias !== prevBiasChar) {
             lastBiasTime = newBiasTime
-        } else {
+            prevBiasChar = bias
+        } else if (!newBiasTime && bias != prevBiasChar) {
             res.status(429).send({ message: "You can only input a new bias character every 4 seconds." });
             return
         }
@@ -43,10 +47,10 @@ router.post('/generate', (req: Request, res: Response) => {
         idx += 1
     }
     currentGrid = grid
-    res.status(200).send({ grid })
+    res.status(200).send({ grid, lastBiasTime, prevBiasChar: oldPrevBiasChar })
 });
 
-router.get('/decode', (req: Request, res: Response) => {
+router.get('/decode', (_req: Request, res: Response) => {
     if (currentGrid.length !== GRID_SIZE[0] * GRID_SIZE[1]) {
         res.status(500).send({ message: "Invalid Grid. Possibly no grid in memory." })
     }
