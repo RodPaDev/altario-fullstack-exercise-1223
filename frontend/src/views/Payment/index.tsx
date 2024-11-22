@@ -54,7 +54,12 @@ export default function PaymentView({ state, dispatch }: PaymentViewProps) {
   }, []);
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)
-  const onChangeAmount = (e: React.ChangeEvent<HTMLInputElement>) => setAmount(e.target.value)
+  const onChangeAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value === '' || /^[0-9]+$/.test(value)) {
+      setAmount(value);
+    }
+  };
 
   return (
     <div className='payments-view'>
