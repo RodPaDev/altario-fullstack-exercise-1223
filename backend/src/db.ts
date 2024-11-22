@@ -20,9 +20,11 @@ export class Collection<T> {
         this.items = new Map<string, T>();
     }
 
-    put(item: Partial<T>): void {
+    put(item: Partial<T>): T {
         let id = generateId()
-        this.items.set(id, { id, ...item } as T);
+        let paymentObj = { id, ...item } as T
+        this.items.set(id, paymentObj);
+        return paymentObj
     }
 
     get(id: string): T | null {
