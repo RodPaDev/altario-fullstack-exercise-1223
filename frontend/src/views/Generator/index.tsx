@@ -53,9 +53,7 @@ export default function GeneratorView({
       </div>
       <Grid data={state.gridData?.grid} />
       <GeneratorStatus
-        isConnected={state.isConnected}
-        isGeneratorStarted={state.isGeneratorStarted}
-        gridCode={state.gridData?.code || null}
+        state={state}
       />
     </div>
   );
