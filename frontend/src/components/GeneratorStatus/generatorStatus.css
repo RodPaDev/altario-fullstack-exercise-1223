@@ -1,0 +1,41 @@
+.generator-status-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+.generator-status-indicator-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #505050;
+}
+
+.generator-status-indicator {
+    height: 10px;
+    width: 10px;
+    border-radius: 100%;
+    background-color: rgb(255, 191, 54);
+}
+
+.generator-status-indicator.ready {
+    background-color: green;
+}
+
+.generator-status-indicator.live {
+    background-color: red;
+}
+
+.generator-status-code-container {
+    border: 1px solid #505050;
+    padding: 20px
+}
+
+strong {
+    font-weight: bold;
+}
