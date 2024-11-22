@@ -4,7 +4,7 @@ import Input from '../../components/Input';
 import './payment.css';
 import { createPayment, getPayments, Payment } from '../../api/payment';
 
-
+import { GridData } from '../Generator'
 type State = {
   payments: Payment[];
 };
@@ -25,18 +25,24 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
-export default function PaymentView() {
+type PaymentViewProps = {
+  gridData: GridData | null,
+}
+
+
+export default function PaymentView({ gridData }: PaymentViewProps) {
   const [state, dispatch] = useReducer(reducer, { payments: [] });
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
 
   const handleAddPayment = async () => {
-    if (!name || !amount) return;
+    if (!name || !amount || !gridData?.code || !gridData?.grid) return;
+
     const newPayment: Omit<Payment, 'id'> = {
       name,
       amount,
-      code: 'placeholder',
-      grid: 'placeholder',
+      code: gridData?.code,
+      grid: gridData?.grid
     };
 
     try {
@@ -101,7 +107,7 @@ export default function PaymentView() {
                 <td>{payment.name}</td>
                 <td>{payment.amount}</td>
                 <td>{payment.code}</td>
-                <td>{payment.grid}</td>
+                <td>{payment.grid.length}</td>
               </tr>
             ))}
           </tbody>

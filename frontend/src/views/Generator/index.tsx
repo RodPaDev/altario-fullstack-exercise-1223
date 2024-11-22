@@ -12,15 +12,19 @@ import './generator.css'
 const GENERATION_STEP_MS = 2000
 const BIAS_COOLDOWN_MS = 4000;
 
-type GridData = {
+export type GridData = {
   grid: string
   code: string
 }
 
-export default function GeneratorView() {
+type GeneratorViewProps = {
+  gridData: GridData | null,
+  setGridData: Function
+}
+
+export default function GeneratorView({ gridData, setGridData }: GeneratorViewProps) {
   const [biasChar, setBiasChar] = useState<string>("")
   const [isGeneratorStarted, setIsGeneratorStarted] = useState<boolean>(false)
-  const [apiData, setApiData] = useState<GridData | null>(null)
   const [lastBiasTime, setLastBiasTime] = useState<number | null>(null)
   const [isBiasInputDisabled, setIsBiasInputDisabled] = useState<boolean>(false)
 
@@ -80,7 +84,7 @@ export default function GeneratorView() {
         setIsBiasInputDisabled(true);
       }
 
-      setApiData({ grid, code })
+      setGridData({ grid, code })
     } catch (error) {
       console.error(error);
     }
@@ -98,7 +102,7 @@ export default function GeneratorView() {
         <ClockComponent />
         <Button label={isGeneratorStarted ? 'HALT GENERATION' : 'GENERATE 2D GRID'} onClick={handleGenerateGrid} />
       </div>
-      <Grid data={apiData?.grid} />
+      <Grid data={gridData?.grid} />
       <div className='grid-status-container'>
         <div className='grid-status-indicator-container'>
           <div className={clsx('grid-status-indicator', isGeneratorStarted && 'live')}></div>
@@ -106,9 +110,9 @@ export default function GeneratorView() {
         </div>
 
         <div className='grid-status-code-container'>
-          {apiData?.code ?
+          {gridData?.code ?
             <span>
-              YOUR CODE: <strong>{apiData.code}</strong>
+              YOUR CODE: <strong>{gridData.code}</strong>
             </span>
             :
             <span className=''>AWAITING GRID GENERATION</span>
