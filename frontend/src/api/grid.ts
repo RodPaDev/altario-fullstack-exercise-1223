@@ -14,7 +14,7 @@ interface GenerateGridParams {
     bias?: string;
 }
 
-const BASE_URL = "http://localhost:3000/grid";
+const BASE_URL = "http://localhost:4000/grid";
 
 export async function generateGrid(params?: GenerateGridParams): Promise<GenerateGridResponse> {
     try {

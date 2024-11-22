@@ -24,7 +24,7 @@ interface CreatePaymentParams {
     grid: string;
 }
 
-const BASE_URL = "http://localhost:3000/payment";
+const BASE_URL = "http://localhost:4000/payment";
 
 
 export async function getPayments(): Promise<GetPaymentsResponse> {

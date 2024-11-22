@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000/ping";
+const BASE_URL = "http://localhost:4000/ping";
 
 export async function getPing(): Promise<boolean> {
     try {

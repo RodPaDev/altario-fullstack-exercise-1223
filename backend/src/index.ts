@@ -6,7 +6,7 @@ import paymentRoutes from "./routes/payment"
 import initAltarioDB from './db';
 
 const app = express();
-const PORT = process.env.EXPRESS_PORT || 3000;
+const PORT = process.env.EXPRESS_PORT || 4000;
 
 app.use(express.json());
 app.use(cors());
