@@ -1,14 +1,15 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+import cors from 'cors';
+
+import gridRoutes from "./routes/grid"
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.EXPRESS_PORT || 3000;
 
 app.use(express.json());
-
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello, TypeScript with Express!');
-});
+app.use(cors());
+app.use('/grid', gridRoutes);
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
