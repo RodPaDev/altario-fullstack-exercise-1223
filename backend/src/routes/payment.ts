@@ -23,9 +23,12 @@ router.post('/create', (req: Request, res: Response) => {
         grid,
     };
 
-    req.db.payments.put(newPayment);
-    console.log(req.db.payments.list())
-    res.status(201).json({ message: "Payment created successfully", payment: newPayment });
+    let payment = req.db.payments.put(newPayment);
+
+    res.status(201).json({
+        message: "Payment created successfully",
+        payment
+    });
 });
 
 export default router;
